@@ -248,13 +248,28 @@ require('lazy').setup({
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
--- NOTE: You can change these options as you wish!
+
+-- Line wrap
+vim.opt.wrap = false
 
 -- Set highlight on search
 vim.o.hlsearch = false
+vim.opt.incsearch = true
 
--- Make line numbers default
-vim.wo.number = true
+-- Tab stuff
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
+
+-- Scroll
+vim.opt.scrolloff = 8
+
+-- Line numbers
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -288,6 +303,9 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
+
+-- paste without losing buffer
+vim.keymap.set('x', '<leader>p', "\"_dp")
 
 -- netrw
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
@@ -551,13 +569,9 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   gopls = {},
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  clangd = {},
+  bashls = {},
+  tsserver = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
