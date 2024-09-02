@@ -1,3 +1,5 @@
+squashfs-root/
+nvim.appimage
 tags
 test.sh
 .luarc.json

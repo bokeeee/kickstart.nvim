@@ -1,4 +1,3 @@
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -37,6 +36,45 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+  -- Formatter
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      local conform = require 'conform'
+
+      conform.setup {
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          javascript = { 'prettier' },
+          typescript = { 'prettier' },
+          javascriptreact = { 'prettier' },
+          typescriptreact = { 'prettier' },
+          json = { 'prettier' },
+          markdown = { 'prettier' },
+          html = { 'prettier' },
+          proto = { 'buf' },
+          yaml = { 'yamlfmt' },
+          css = { 'prettier' },
+          scss = { 'prettier' },
+          go = { 'gofumpt' },
+        },
+        format_on_save = {
+          -- These options will be passed to conform.format()
+          timeout_ms = 500,
+          lsp_format = 'fallback',
+        },
+      }
+
+      vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
+        conform.format {
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 1000,
+        }
+      end, { desc = 'Format file' })
+    end,
+  },
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -306,7 +344,7 @@ vim.o.termguicolors = true
 -- [[ Basic Keymaps ]]
 
 -- paste without losing buffer
-vim.keymap.set('x', '<leader>p', "\"_dp")
+vim.keymap.set('x', '<leader>p', '"_dp')
 
 -- netrw
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
@@ -573,6 +611,7 @@ local servers = {
   clangd = {},
   bashls = {},
   tsserver = {},
+  ansiblels = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
