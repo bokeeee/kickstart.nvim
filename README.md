@@ -9,9 +9,8 @@ Requirements:
 * Make sure to review the readmes of the plugins if you are experiencing errors. In particular:
   * [ripgrep](https://github.com/BurntSushi/ripgrep#installation) is required for multiple [telescope](https://github.com/nvim-telescope/telescope.nvim#suggested-dependencies) pickers.
 * Currently works with nvim version:
-NVIM v0.10.0
-Build type: Release
-LuaJIT 2.1.1713484068
+NVIM v0.11.3
+LuaJIT 2.1.1741730670
 
 Clone kickstart.nvim:
 
