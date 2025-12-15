@@ -40,16 +40,16 @@ require('lazy').setup({
 
   -- Lua lsp stuff
   {
-    "folke/lazydev.nvim",
-    ft = "lua", -- only load for Lua files
+    'folke/lazydev.nvim',
+    ft = 'lua', -- only load for Lua files
     opts = {
       -- Preload additional libraries (optional)
       library = {
         -- Your local libraries or plugin names go here:
         -- e.g. "lazy.nvim", "nvim-treesitter", etc.
-        "lazy.nvim",
-        "nvim-treesitter",
-        "${3rd}/luv/library",
+        'lazy.nvim',
+        'nvim-treesitter',
+        '${3rd}/luv/library',
       },
       -- You can override `enabled` if you want to toggle per-project:
       -- enabled = function(root_dir) return true end,
@@ -112,13 +112,12 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
-
+      { 'j-hui/fidget.nvim', opts = {} },
     },
   },
   -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     dependencies = {
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
@@ -130,7 +129,7 @@ require('lazy').setup({
     opts = function(_, opts)
       opts.sources = opts.sources or {}
       table.insert(opts.sources, {
-        name        = "lazydev",
+        name = 'lazydev',
         group_index = 0,
       })
     end,
@@ -138,22 +137,22 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
     opts = {
       spec = {
         -- NORMAL‐mode <leader> groups
-        { "<leader>c", group = "[C]ode" },
-        { "<leader>d", group = "[D]ocument" },
-        { "<leader>g", group = "[G]it" },
-        { "<leader>h", group = "Git [H]unk" },
-        { "<leader>r", group = "[R]ename" },
-        { "<leader>s", group = "[S]earch" },
-        { "<leader>t", group = "[T]oggle" },
-        { "<leader>w", group = "[W]orkspace" },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>h', group = 'Git [H]unk' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>w', group = '[W]orkspace' },
 
         -- VISUAL‐mode <leader> mappings
-        { "<leader>h", mode = "v",           desc = "Git [H]unk" },
+        { '<leader>h', mode = 'v', desc = 'Git [H]unk' },
       },
     },
   },
@@ -575,7 +574,7 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.code_action {
       context = {
         diagnostics = vim.diagnostic.get(0),
-        only        = { 'quickfix', 'refactor', 'source' },
+        only = { 'quickfix', 'refactor', 'source' },
       },
     }
   end, '[C]ode [A]ction')
@@ -616,28 +615,28 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Mason + mason-lspconfig
 -- ------------------------------------------------------------------------
 require('mason').setup()
-require('mason-lspconfig').setup({
+require('mason-lspconfig').setup {
   ensure_installed = {
-    "lua_ls",  -- Lua
-    "pyright", -- Python
-    "gopls",   -- Go
-    "ts_ls",   -- TypeScript
-    "clangd",
-    "bashls",
-    "ansiblels",
+    'lua_ls', -- Lua
+    'pyright', -- Python
+    'gopls', -- Go
+    'tsserver', -- TypeScript
+    'clangd',
+    'bashls',
+    'ansiblels',
   },
   automatic_enable = true,
   handlers = {
     -- default handler for all servers
     function(server_name)
       require('lspconfig')[server_name].setup {
-        on_attach    = on_attach,
+        on_attach = on_attach,
         capabilities = capabilities,
       }
     end,
   },
-})
-local lspconfig = require('lspconfig')
+}
+local lspconfig = require 'lspconfig'
 
 lspconfig.lua_ls.setup {
   settings = {
@@ -651,12 +650,12 @@ lspconfig.lua_ls.setup {
         -- Get the language server to recognize the `vim` global
         globals = {
           'vim',
-          'require'
+          'require',
         },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file('', true),
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -665,7 +664,6 @@ lspconfig.lua_ls.setup {
     },
   },
 }
-
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
